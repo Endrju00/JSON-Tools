@@ -9,3 +9,6 @@ Aplikacja dla programistów, którzy potrzebują przeformatować lub filtrować 
 * [Andrzej Kapczyński](https://github.com/Endrju00)
 * [Wiktoria Keller](https://github.com/wiktoriakeller)
 * [Dawid Michalak](https://github.com/DawidMichalak)
+
+
+[Zasady punktowania projektu](https://docs.google.com/spreadsheets/d/e/2PACX-1vTn6j3M8pmGEzrsQk8mXse7lVHUdhYWkfxbkQiYI23rBtwM4N3bWw0qtupW-gesfCkcYasnZ-eEXl-F/pubhtml)
