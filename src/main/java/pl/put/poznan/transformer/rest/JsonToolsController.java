@@ -2,6 +2,7 @@ package pl.put.poznan.transformer.rest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
+import pl.put.poznan.transformer.logic.JsonMinifier;
 import pl.put.poznan.transformer.logic.JsonTools;
 
 import java.util.Arrays;
@@ -28,15 +29,18 @@ public class JsonToolsController {
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public String post(@PathVariable String text,
-                      @RequestBody String[] transforms) {
+                      @RequestBody String json) {
 
         // log the parameters
-        logger.debug(text);
-        logger.debug(Arrays.toString(transforms));
+        //logger.debug(text);
+        //logger.debug(Arrays.toString(transforms));
 
         // perform the transformation, you should run your logic here, below is just a silly example
-        JsonTools transformer = new JsonTools(transforms);
-        return transformer.transform(text);
+        //JsonTools transformer = new JsonTools(transforms);
+        String minified = JsonMinifier.minify(json);
+        logger.debug(minified);
+
+        return minified;
     }
 
 
