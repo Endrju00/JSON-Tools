@@ -12,3 +12,6 @@ Aplikacja dla programistów, którzy potrzebują przeformatować lub filtrować 
 
 
 [Zasady punktowania projektu](https://docs.google.com/spreadsheets/d/e/2PACX-1vTn6j3M8pmGEzrsQk8mXse7lVHUdhYWkfxbkQiYI23rBtwM4N3bWw0qtupW-gesfCkcYasnZ-eEXl-F/pubhtml)
+
+### Status ostatniego builda
+![example workflow](https://github.com/Endrju00/JSON-tools/actions/workflows/ci.yml/badge.svg)
