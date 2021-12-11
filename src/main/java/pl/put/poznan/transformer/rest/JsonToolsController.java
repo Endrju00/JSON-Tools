@@ -4,6 +4,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import pl.put.poznan.transformer.logic.JsonMinifier;
 import pl.put.poznan.transformer.logic.JsonTools;
+import pl.put.poznan.transformer.logic.JsonValidator;
 
 import java.util.Arrays;
 
@@ -30,21 +31,19 @@ public class JsonToolsController {
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public String post(@PathVariable String text,
                       @RequestBody String json) {
+        String result;
 
-        // log the parameters
-        //logger.debug(text);
-        //logger.debug(Arrays.toString(transforms));
+        if(JsonValidator.isValidJson(json)) {
+            String minified = JsonMinifier.minify(json);
+            result = minified;
+        }
+        else {
+            result = "Json is not valid";
+        }
 
-        // perform the transformation, you should run your logic here, below is just a silly example
-        //JsonTools transformer = new JsonTools(transforms);
-        String minified = JsonMinifier.minify(json);
-        logger.debug(minified);
-
-        return minified;
+        logger.debug(result);
+        return result;
     }
-
-
-
 }
 
 
