@@ -1,30 +1,52 @@
 package pl.put.poznan.transformer.logic;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.Queue;
 
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.JsonNode;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 public class JsonValidator {
     public static boolean isValidJson(String json) {
         boolean valid = true;
+
         try {
-            ObjectMapper mapper = new ObjectMapper();
-            JsonFactory factory = mapper.getFactory();
-            JsonParser parser = factory.createParser(json);
-            JsonNode jsonObj = mapper.readTree(parser);
-            System.out.println(jsonObj);
+            new Gson().getAdapter(JsonObject.class).fromJson(json);
         }
-        catch(JsonParseException ex) {
-            valid = false;
-        }
-        catch(IOException ex) {
+        catch (IOException e) {
             valid = false;
         }
 
+        if(valid) {
+            valid = areBracketsBalanced(json);
+        }
+
         return valid;
+    }
+
+    private static boolean areBracketsBalanced(String json) {
+        Queue<Character> queue = new LinkedList<>();
+        for (int i = 0; i < json.length(); i++) {
+            char ch = json.charAt(i);
+
+            if (ch == '{' || ch == '[') {
+                queue.add(ch);
+            }
+            else if(ch == '}' || ch == ']') {
+                if (!queue.isEmpty() && ((queue.peek() == '{' && ch == '}') || (queue.peek() == '[' && ch == ']'))) {
+                    queue.remove();
+                }
+                else {
+                    return false;
+                }
+            }
+
+            if (queue.isEmpty() && i != (json.length() - 1)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

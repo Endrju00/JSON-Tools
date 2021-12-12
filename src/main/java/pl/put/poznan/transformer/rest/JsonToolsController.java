@@ -8,7 +8,6 @@ import pl.put.poznan.transformer.logic.JsonValidator;
 
 import java.util.Arrays;
 
-
 @RestController
 @RequestMapping("/{text}")
 public class JsonToolsController {
