@@ -27,13 +27,11 @@ public class JsonValidator {
 
     private static boolean areBracketsBalanced(String json) {
         Queue<Character> queue = new LinkedList<>();
-        boolean queueEmptyOnce = false;
 
         for (int i = 0; i < json.length(); i++) {
             char ch = json.charAt(i);
 
             if (queue.isEmpty() && i != (json.length() - 1) && i != 0 && !Character.isWhitespace(ch)) {
-                System.out.println(ch);
                 return false;
             }
 
