@@ -1,6 +1,5 @@
 package pl.put.poznan.transformer.logic;
 
-import java.io.Console;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -23,9 +22,8 @@ public class JsonValidatorDecorator extends JsonDecorator {
         }
     }
 
-    public static boolean isValidJson(String json) {
+    public boolean isValidJson(String json) {
         boolean valid = true;
-        System.out.println(json);
         try {
             new Gson().getAdapter(JsonObject.class).fromJson(json);
         }
@@ -33,15 +31,13 @@ public class JsonValidatorDecorator extends JsonDecorator {
             valid = false;
         }
 
-        System.out.println(valid);
         if(valid) {
             valid = areBracketsBalanced(json);
         }
-        System.out.println(valid);
         return valid;
     }
 
-    private static boolean areBracketsBalanced(String json) {
+    private boolean areBracketsBalanced(String json) {
         Queue<Character> queue = new LinkedList<>();
 
         for (int i = 0; i < json.length(); i++) {
@@ -63,7 +59,6 @@ public class JsonValidatorDecorator extends JsonDecorator {
                 }
             }
         }
-
         return true;
     }
 }

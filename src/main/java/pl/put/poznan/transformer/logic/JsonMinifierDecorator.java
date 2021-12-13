@@ -13,7 +13,7 @@ public class JsonMinifierDecorator extends JsonDecorator {
         return minify(super.getData());
     }
 
-    public static String minify(String json) {
+    public String minify(String json) {
         boolean inQuotes = false;
         StringBuilder output = new StringBuilder();
 
