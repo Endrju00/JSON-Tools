@@ -1,5 +1,6 @@
 package pl.put.poznan.transformer.logic;
 
+import java.io.Console;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -7,10 +8,24 @@ import java.util.Queue;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-public class JsonValidator {
+public class JsonValidatorDecorator extends JsonDecorator {
+    public JsonValidatorDecorator(Json content) {
+        super(content);
+    }
+
+    @Override
+    public String getData() {
+        if(isValidJson(super.getData())){
+            return super.getData();
+        }
+        else {
+            return "Invalid Json";
+        }
+    }
+
     public static boolean isValidJson(String json) {
         boolean valid = true;
-
+        System.out.println(json);
         try {
             new Gson().getAdapter(JsonObject.class).fromJson(json);
         }
@@ -18,10 +33,11 @@ public class JsonValidator {
             valid = false;
         }
 
+        System.out.println(valid);
         if(valid) {
             valid = areBracketsBalanced(json);
         }
-
+        System.out.println(valid);
         return valid;
     }
 
