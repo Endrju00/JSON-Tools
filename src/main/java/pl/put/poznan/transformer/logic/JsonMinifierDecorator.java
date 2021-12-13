@@ -3,7 +3,16 @@ package pl.put.poznan.transformer.logic;
 import java.util.Arrays;
 import java.util.List;
 
-public class JsonMinifier {
+public class JsonMinifierDecorator extends JsonDecorator {
+    public JsonMinifierDecorator(Json content) {
+        super(content);
+    }
+
+    @Override
+    public String getData() {
+        return minify(super.getData());
+    }
+
     public static String minify(String json) {
         boolean inQuotes = false;
         StringBuilder output = new StringBuilder();
