@@ -3,6 +3,7 @@ package pl.put.poznan.transformer.logic;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -38,23 +39,28 @@ public class JsonValidatorDecorator extends JsonDecorator {
     }
 
     private boolean areBracketsBalanced(String json) {
-        Queue<Character> queue = new LinkedList<>();
+        Stack<Character> stack = new Stack<Character>();
+        boolean firstAddition = false;
 
         for (int i = 0; i < json.length(); i++) {
             char ch = json.charAt(i);
 
-            if (queue.isEmpty() && i != (json.length() - 1) && i != 0 && !Character.isWhitespace(ch)) {
+            if (stack.isEmpty() && i != (json.length() - 1) && firstAddition && !Character.isWhitespace(ch)) {
                 return false;
             }
 
             if (ch == '{' || ch == '[') {
-                queue.add(ch);
+                stack.add(ch);
+
+                if(!firstAddition)
+                    firstAddition = true;
             }
             else if(ch == '}' || ch == ']') {
-                if (!queue.isEmpty() && ((queue.peek() == '{' && ch == '}') || (queue.peek() == '[' && ch == ']'))) {
-                    queue.remove();
+                if (!stack.isEmpty() && ((stack.peek() == '{' && ch == '}') || (stack.peek() == '[' && ch == ']'))) {
+                    stack.pop();
                 }
                 else {
+                    System.out.println("Second" + ch);
                     return false;
                 }
             }
