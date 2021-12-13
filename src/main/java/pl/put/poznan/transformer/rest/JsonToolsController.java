@@ -32,7 +32,7 @@ public class JsonToolsController {
                       @RequestBody String jsonRequest) {
         String result;
 
-        Json json = new JsonMinifierDecorator (new JsonValidatorDecorator (new JsonData(jsonRequest)));
+        Json json = new JsonClarifierDecorator (new JsonValidatorDecorator (new JsonData(jsonRequest)));
 
         logger.debug(json.getData());
 
