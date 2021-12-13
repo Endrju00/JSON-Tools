@@ -1,6 +1,6 @@
 package pl.put.poznan.transformer.logic;
 
-public class JsonDecorator implements Json {
+public abstract class JsonDecorator implements Json {
 
     protected Json decoratedJson;
 
