@@ -32,11 +32,13 @@ public class JsonToolsController {
                       @RequestBody String jsonRequest) {
 
         Json json1 = new JsonData(jsonRequest);
-        Json json2 = new JsonValidatorDecorator(json1);
-        if(json2.getData().equals("Invalid Json"))
-            return "Invalid Json";
+//        Json json2 = new JsonValidatorDecorator(json1);
+//        if(json2.getData().equals("Invalid Json"))
+//            return "Invalid Json";
+//        else
+//            return json2.getData();
 
-        Json json = new JsonCutterDecorator (json2, Arrays.asList(text, "xd", "stock"));
+        Json json = new JsonSaverDecorator (json1, Arrays.asList(text, "otherstuff", "stock"));
         logger.debug(json.getData());
         return json.getData();
     }
