@@ -38,7 +38,7 @@ public class JsonToolsController {
 //        else
 //            return json2.getData();
 
-        Json json = new JsonSaverDecorator (json1, Arrays.asList(text, "otherstuff", "stock"));
+        Json json = new JsonClarifierDecorator (json1);
         logger.debug(json.getData());
         return json.getData();
     }
