@@ -30,12 +30,16 @@ public class JsonToolsController {
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public String post(@PathVariable String text,
                       @RequestBody String jsonRequest) {
-        String result;
 
-        Json json = new JsonMinifierDecorator (new JsonValidatorDecorator (new JsonData(jsonRequest)));
+        Json json1 = new JsonData(jsonRequest);
+//        Json json2 = new JsonValidatorDecorator(json1);
+//        if(json2.getData().equals("Invalid Json"))
+//            return "Invalid Json";
+//        else
+//            return json2.getData();
 
+        Json json = new JsonClarifierDecorator (json1);
         logger.debug(json.getData());
-
         return json.getData();
     }
 }
