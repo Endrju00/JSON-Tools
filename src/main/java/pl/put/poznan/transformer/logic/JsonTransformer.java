@@ -17,7 +17,7 @@ public class JsonTransformer {
         this.toSave = toSave;
     }
 
-    public String transform(Json data) {
+    public String transform(Json data) throws NoSuchMethodException {
 
         data = new JsonValidatorDecorator(data);
 
@@ -36,7 +36,7 @@ public class JsonTransformer {
                     data = new JsonSaverDecorator(data, Arrays.asList(toSave));
                     break;
                 default:
-                    break; //throw
+                    throw new NoSuchMethodException("Invalid transform");
             }
         }
         return data.getData();

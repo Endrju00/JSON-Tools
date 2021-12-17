@@ -1,6 +1,8 @@
 package pl.put.poznan.transformer.rest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.put.poznan.transformer.logic.*;
 import pl.put.poznan.transformer.logic.decorators.JsonMinifierDecorator;
@@ -28,7 +30,12 @@ public class JsonToolsController {
         Json json = new JsonData(jsonRequest);
 
         JsonTransformer transformer = new JsonTransformer(transforms, toCut, toSave);
-        return transformer.transform(json);
+        try{
+            return transformer.transform(json);
+        }
+        catch (NoSuchMethodException e) {
+            return e.getMessage();
+        }
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
@@ -46,7 +53,12 @@ public class JsonToolsController {
         Json json = new JsonData(jsonRequest);
 
         JsonTransformer transformer = new JsonTransformer(transforms, toCut, toSave);
-        return transformer.transform(json);
+        try{
+            return transformer.transform(json);
+        }
+        catch (NoSuchMethodException e) {
+            return e.getMessage();
+        }
     }
 }
 
