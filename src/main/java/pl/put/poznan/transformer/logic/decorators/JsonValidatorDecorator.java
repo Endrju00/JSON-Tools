@@ -1,12 +1,8 @@
 package pl.put.poznan.transformer.logic.decorators;
 
-import java.io.IOException;
 import java.util.Stack;
-
+import pl.put.poznan.transformer.exceptions.InvalidJson;
 import pl.put.poznan.transformer.logic.Json;
-import pl.put.poznan.transformer.logic.decorators.JsonDecorator;
-import java.util.Stack;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonValidatorDecorator extends JsonDecorator {
@@ -15,12 +11,12 @@ public class JsonValidatorDecorator extends JsonDecorator {
     }
 
     @Override
-    public String getData() {
+    public String getData() throws InvalidJson {
         if(isValidJson(super.getData())){
             return super.getData();
         }
         else {
-            return "Invalid Json";
+            throw new InvalidJson("Json format is invalid");
         }
     }
 
@@ -61,11 +57,11 @@ public class JsonValidatorDecorator extends JsonDecorator {
                     stack.pop();
                 }
                 else {
-                    System.out.println("Second" + ch);
                     return false;
                 }
             }
         }
+
         return true;
     }
 }

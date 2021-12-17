@@ -1,12 +1,9 @@
 package pl.put.poznan.transformer.logic;
 
 import pl.put.poznan.transformer.logic.decorators.*;
-
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class JsonTransformer {
-
     private String[] transforms;
     private String[] toSave;
     private String[] toCut;
@@ -18,7 +15,6 @@ public class JsonTransformer {
     }
 
     public String transform(Json data) throws NoSuchMethodException {
-
         data = new JsonValidatorDecorator(data);
 
         for (String transform : transforms) {
@@ -39,6 +35,7 @@ public class JsonTransformer {
                     throw new NoSuchMethodException("Invalid transform");
             }
         }
+
         return data.getData();
     }
 
