@@ -1,9 +1,10 @@
-package pl.put.poznan.transformer.logic;
+package pl.put.poznan.transformer.logic.decorators;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import pl.put.poznan.transformer.logic.Json;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class JsonCutterDecorator extends JsonDecorator {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode node = mapper.readTree(json);
             deleteNodes(node, to_remove);
-            return node.toPrettyString();
+            return node.toString();
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

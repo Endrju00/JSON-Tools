@@ -1,10 +1,12 @@
-package pl.put.poznan.transformer.logic;
+package pl.put.poznan.transformer.logic.decorators;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import pl.put.poznan.transformer.logic.Json;
+import pl.put.poznan.transformer.logic.decorators.JsonDecorator;
 
 import java.util.ArrayList;
 import java.util.Iterator;

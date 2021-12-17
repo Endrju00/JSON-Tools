@@ -1,5 +1,7 @@
-package pl.put.poznan.transformer.logic;
+package pl.put.poznan.transformer.logic.decorators;
 
+
+import pl.put.poznan.transformer.logic.Json;
 
 public abstract class JsonDecorator implements Json {
 
