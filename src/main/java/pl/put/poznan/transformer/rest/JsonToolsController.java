@@ -16,7 +16,7 @@ public class JsonToolsController {
     private static final Logger logger = LoggerFactory.getLogger(JsonToolsController.class);
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json", value = "/{jsonRequest}")
-    public String get(@PathVariable String jsonRequest,
+    public ResponseEntity<String> get(@PathVariable String jsonRequest,
                       @RequestParam(value="transforms", defaultValue="minify, cut") String[] transforms,
                       @RequestParam(value="cut", defaultValue="") String[] toCut,
                       @RequestParam(value="save", defaultValue="") String[] toSave) {
@@ -31,15 +31,16 @@ public class JsonToolsController {
 
         JsonTransformer transformer = new JsonTransformer(transforms, toCut, toSave);
         try{
-            return transformer.transform(json);
+            String message = transformer.transform(json);
+            return new ResponseEntity<String>(message, HttpStatus.OK);
         }
         catch (NoSuchMethodException | IllegalArgumentException e) {
-            return e.getMessage();
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
-    public String post(@RequestParam(value="transforms", defaultValue="minify, cut") String[] transforms,
+    public ResponseEntity<String> post(@RequestParam(value="transforms", defaultValue="minify, cut") String[] transforms,
                        @RequestParam(value="cut", defaultValue="") String[] toCut,
                        @RequestParam(value="save", defaultValue="") String[] toSave,
                        @RequestBody String jsonRequest) {
@@ -54,10 +55,11 @@ public class JsonToolsController {
 
         JsonTransformer transformer = new JsonTransformer(transforms, toCut, toSave);
         try{
-            return transformer.transform(json);
+            String message = transformer.transform(json);
+            return new ResponseEntity<String>(message, HttpStatus.OK);
         }
         catch (NoSuchMethodException | IllegalArgumentException e) {
-            return e.getMessage();
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }
