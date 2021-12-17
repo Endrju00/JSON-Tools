@@ -33,7 +33,7 @@ public class JsonToolsController {
         try{
             return transformer.transform(json);
         }
-        catch (NoSuchMethodException e) {
+        catch (NoSuchMethodException | IllegalArgumentException e) {
             return e.getMessage();
         }
     }
@@ -56,7 +56,7 @@ public class JsonToolsController {
         try{
             return transformer.transform(json);
         }
-        catch (NoSuchMethodException e) {
+        catch (NoSuchMethodException | IllegalArgumentException e) {
             return e.getMessage();
         }
     }

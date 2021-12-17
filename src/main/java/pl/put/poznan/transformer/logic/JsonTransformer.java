@@ -20,6 +20,9 @@ public class JsonTransformer {
     public String transform(Json data) throws NoSuchMethodException {
 
         data = new JsonValidatorDecorator(data);
+        if(data.getData().equals("Invalid Json")) {
+            throw new IllegalArgumentException("Invalid Json format");
+        }
 
         for (String transform : transforms) {
             switch (transform) {
