@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import pl.put.poznan.transformer.exceptions.JsonProcessingError;
 import pl.put.poznan.transformer.logic.Json;
-import pl.put.poznan.transformer.logic.decorators.JsonDecorator;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,34 +14,40 @@ import java.util.List;
 
 public class JsonSaverDecorator extends JsonDecorator {
 
-    private List<String> to_save;
+    private List<String> toSave;
 
     public JsonSaverDecorator(Json content) {
         super(content);
     }
 
-    public JsonSaverDecorator(Json content, List<String> to_save) {
+    public JsonSaverDecorator(Json content, List<String> toSave) {
         this(content);
-        this.to_save = to_save;
+        this.toSave = toSave;
     }
 
-    public String getData() {
-        return save(super.getData());
+    @Override
+    public String getData() throws JsonProcessingError {
+        try {
+            return save(super.getData());
+        }
+        catch (JsonProcessingException ex) {
+            throw new JsonProcessingError("Error in JSON processing");
+        }
     }
 
-    public String save(String json) {
+    public String save(String json) throws JsonProcessingException {
         try {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode node = mapper.readTree(json);
-            saveNodes(node, to_save);
+            saveNodes(node, toSave);
             return node.toPrettyString();
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
         }
-        return "";
+        catch (JsonProcessingException ex) {
+            throw ex;
+        }
     }
 
-    private void saveNodes(JsonNode root, List<String> to_save){
+    private void saveNodes(JsonNode root, List<String> toSave){
         if(root.isObject()){
             List<String> children = new ArrayList<>();
             Iterator<String> NameIterator = root.fieldNames();
@@ -50,21 +56,23 @@ public class JsonSaverDecorator extends JsonDecorator {
                 children.add(fieldName);
             }
             for(String child: children) {
-                if (!to_save.contains(child)) {
+                if (!toSave.contains(child)) {
                     ((ObjectNode) root).remove(child);
-                } else {
+                }
+                else {
                     JsonNode fieldValue = root.get(child);
                     if (fieldValue.isObject() || fieldValue.isArray()) {
-                        saveNodes(fieldValue, to_save);
+                        saveNodes(fieldValue, toSave);
                     }
                 }
             }
-        } else if(root.isArray()) {
+        }
+        else if(root.isArray()) {
             ArrayNode rootArray = (ArrayNode) root;
             for (int i = 0; i < rootArray.size(); i++) {
                 JsonNode ElementNode = rootArray.get(i);
                 if (ElementNode.isObject() || ElementNode.isArray()) {
-                    saveNodes(ElementNode, to_save);
+                    saveNodes(ElementNode, toSave);
                 }
             }
         }

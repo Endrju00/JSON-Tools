@@ -1,5 +1,6 @@
 package pl.put.poznan.transformer.exceptions;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -21,5 +22,10 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(NoSuchMethodException.class)
     public ResponseEntity<Object> handleNoSuchMethodException(NoSuchMethodException ex) {
         return new ResponseEntity<Object>(new ApiError(ex.getMessage(), HttpStatus.NOT_IMPLEMENTED, LocalDateTime.now()), HttpStatus.NOT_IMPLEMENTED);
+    }
+
+    @ExceptionHandler(JsonProcessingException.class)
+    public ResponseEntity<Object> handleJsonProcessingException(JsonProcessingException ex) {
+        return new ResponseEntity<Object>(new ApiError(ex.getMessage(), HttpStatus.BAD_REQUEST, LocalDateTime.now()), HttpStatus.BAD_REQUEST);
     }
 }
