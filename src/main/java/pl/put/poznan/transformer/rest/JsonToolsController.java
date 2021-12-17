@@ -9,7 +9,6 @@ import pl.put.poznan.transformer.logic.decorators.JsonSaverDecorator;
 import java.util.Arrays;
 
 @RestController
-@RequestMapping("/{text}")
 public class JsonToolsController {
 
     private static final Logger logger = LoggerFactory.getLogger(JsonToolsController.class);
