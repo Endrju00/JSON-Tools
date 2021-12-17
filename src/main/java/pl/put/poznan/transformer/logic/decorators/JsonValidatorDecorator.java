@@ -1,5 +1,10 @@
-package pl.put.poznan.transformer.logic;
+package pl.put.poznan.transformer.logic.decorators;
 
+import java.io.IOException;
+import java.util.Stack;
+
+import pl.put.poznan.transformer.logic.Json;
+import pl.put.poznan.transformer.logic.decorators.JsonDecorator;
 import java.util.Stack;
 
 import com.fasterxml.jackson.databind.ObjectMapper;

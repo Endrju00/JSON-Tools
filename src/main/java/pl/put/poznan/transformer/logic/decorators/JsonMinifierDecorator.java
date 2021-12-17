@@ -1,7 +1,7 @@
-package pl.put.poznan.transformer.logic;
+package pl.put.poznan.transformer.logic.decorators;
 
-import java.util.Arrays;
-import java.util.List;
+import pl.put.poznan.transformer.logic.Json;
+import pl.put.poznan.transformer.logic.decorators.JsonDecorator;
 
 public class JsonMinifierDecorator extends JsonDecorator {
     public JsonMinifierDecorator(Json content) {
