@@ -30,7 +30,7 @@ public class JsonCutterDecorator extends JsonDecorator {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode node = mapper.readTree(json);
             deleteNodes(node, to_remove);
-            return node.toString();
+            return node.toPrettyString();
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
