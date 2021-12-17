@@ -13,7 +13,7 @@ public class JsonToolsController {
 
     private static final Logger logger = LoggerFactory.getLogger(JsonToolsController.class);
 
-    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(method = RequestMethod.GET, produces = "application/json", value = "/{jsonRequest}")
     public String get(@PathVariable String jsonRequest,
                       @RequestParam(value="transforms", defaultValue="minify, cut") String[] transforms,
                       @RequestParam(value="cut", defaultValue="") String[] toCut,
