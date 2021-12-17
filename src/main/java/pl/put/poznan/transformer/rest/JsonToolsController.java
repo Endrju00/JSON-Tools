@@ -7,8 +7,7 @@ import pl.put.poznan.transformer.logic.*;
 
 @RestController
 public class JsonToolsController {
-
-    private static final Logger logger = LoggerFactory.getLogger(JsonToolsController.class);
+    private final Logger logger = LoggerFactory.getLogger(JsonToolsController.class);
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json", value = "/{jsonRequest}")
     public String get(@PathVariable String jsonRequest,

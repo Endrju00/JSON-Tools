@@ -1,6 +1,9 @@
 package pl.put.poznan.transformer.logic.decorators;
 
 import java.util.Stack;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.put.poznan.transformer.exceptions.InvalidJson;
 import pl.put.poznan.transformer.logic.Json;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,6 +12,7 @@ public class JsonValidatorDecorator extends JsonDecorator {
     public JsonValidatorDecorator(Json content) {
         super(content);
     }
+    private final Logger logger = LoggerFactory.getLogger(JsonValidatorDecorator.class);
 
     @Override
     public String getData() throws InvalidJson {
@@ -16,6 +20,9 @@ public class JsonValidatorDecorator extends JsonDecorator {
             return super.getData();
         }
         else {
+            if(logger.isDebugEnabled())
+                logger.debug("Provided json is invalid");
+
             throw new InvalidJson("Json format is invalid");
         }
     }
@@ -32,6 +39,7 @@ public class JsonValidatorDecorator extends JsonDecorator {
         if(valid) {
             valid = areBracketsBalanced(json);
         }
+
         return valid;
     }
 
@@ -57,6 +65,9 @@ public class JsonValidatorDecorator extends JsonDecorator {
                     stack.pop();
                 }
                 else {
+                    if(logger.isDebugEnabled())
+                        logger.debug("Error in brackets: stack is empty or no matching brackets");
+
                     return false;
                 }
             }

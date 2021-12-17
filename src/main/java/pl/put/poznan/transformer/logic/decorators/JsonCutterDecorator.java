@@ -5,6 +5,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.put.poznan.transformer.exceptions.JsonCutterError;
 import pl.put.poznan.transformer.exceptions.JsonProcessingError;
 import pl.put.poznan.transformer.logic.Json;
@@ -12,6 +14,7 @@ import pl.put.poznan.transformer.logic.Json;
 import java.util.List;
 
 public class JsonCutterDecorator extends JsonDecorator {
+    private final Logger logger = LoggerFactory.getLogger(JsonCutterDecorator.class);
 
     private List<String> toRemove;
 
@@ -29,6 +32,9 @@ public class JsonCutterDecorator extends JsonDecorator {
             return cut(super.getData());
         }
         catch (JsonProcessingException ex) {
+            if(logger.isDebugEnabled())
+                logger.debug("Error during JSON processing");
+
             throw new JsonProcessingError("Error in JSON processing");
         }
     }
@@ -46,13 +52,16 @@ public class JsonCutterDecorator extends JsonDecorator {
     }
 
     private void deleteNodes(JsonNode root, List<String> toRemove) throws JsonCutterError {
-        for(String remove_child: toRemove) {
-            List<JsonNode> parents = root.findParents(remove_child);
+        for(String removeChild: toRemove) {
+            List<JsonNode> parents = root.findParents(removeChild);
             for(JsonNode parent: parents) {
                 try {
-                    ((ObjectNode) parent).remove(remove_child);
+                    ((ObjectNode) parent).remove(removeChild);
                 }
                 catch (Exception e) {
+                    if(logger.isDebugEnabled())
+                        logger.debug("Error during cutting, parent: " + parent + " child: " + removeChild);
+
                     throw new JsonCutterError("Error during cutting");
                 }
             }

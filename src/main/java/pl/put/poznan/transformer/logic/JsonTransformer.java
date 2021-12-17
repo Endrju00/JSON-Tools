@@ -1,5 +1,7 @@
 package pl.put.poznan.transformer.logic;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.put.poznan.transformer.logic.decorators.*;
 import java.util.Arrays;
 
@@ -7,6 +9,7 @@ public class JsonTransformer {
     private String[] transforms;
     private String[] toSave;
     private String[] toCut;
+    private final Logger logger = LoggerFactory.getLogger(JsonTransformer.class);
 
     public JsonTransformer (String[] transforms, String[] toCut, String[] toSave) {
         this.transforms = transforms;
@@ -32,11 +35,13 @@ public class JsonTransformer {
                     data = new JsonSaverDecorator(data, Arrays.asList(toSave));
                     break;
                 default:
+                    if(logger.isDebugEnabled())
+                        logger.debug("There is no such method as: " + transform);
+
                     throw new NoSuchMethodException("Invalid transform");
             }
         }
 
         return data.getData();
     }
-
 }
