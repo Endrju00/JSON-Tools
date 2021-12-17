@@ -1,5 +1,0 @@
-pl\put\poznan\transformer\logic\Json.class
-pl\put\poznan\transformer\logic\JsonData.class
-pl\put\poznan\transformer\logic\JsonValidatorDecorator.class
-pl\put\poznan\transformer\logic\JsonDecorator.class
-pl\put\poznan\transformer\logic\JsonMinifierDecorator.class
