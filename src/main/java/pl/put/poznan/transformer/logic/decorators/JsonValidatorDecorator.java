@@ -1,25 +1,55 @@
 package pl.put.poznan.transformer.logic.decorators;
 
 import java.util.Stack;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.put.poznan.transformer.exceptions.InvalidJson;
 import pl.put.poznan.transformer.logic.Json;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Class purpose is to validate provided JSON.
+ */
 public class JsonValidatorDecorator extends JsonDecorator {
+    /**
+     * Used for logging
+     */
+    private final Logger logger = LoggerFactory.getLogger(JsonValidatorDecorator.class);
+
+    /**
+     * Constructor calling base class constructor
+     *
+     * @param content is an object that will be validated
+     */
     public JsonValidatorDecorator(Json content) {
         super(content);
     }
 
+    /**
+     * Method returns provided JSON string or throws an error
+     * when JSON is invalid
+     *
+     * @return validated JSON
+     * @throws InvalidJson in case JSON is invalid
+     */
     @Override
     public String getData() throws InvalidJson {
         if(isValidJson(super.getData())){
             return super.getData();
         }
         else {
+            logger.debug("Provided json is invalid");
             throw new InvalidJson("Json format is invalid");
         }
     }
 
+    /**
+     * Uses Jackson library to check whether JSON is valid
+     *
+     * @param json JSON that has to be validated
+     * @return boolean value indicating result of validation
+     */
     public boolean isValidJson(String json) {
         boolean valid = true;
         try {
@@ -32,9 +62,18 @@ public class JsonValidatorDecorator extends JsonDecorator {
         if(valid) {
             valid = areBracketsBalanced(json);
         }
+
         return valid;
     }
 
+    /**
+     * Checks whether brackets are balanced and checks if
+     * there are no extra letters after a bracket or at the
+     * end or beginning of the JSON
+     *
+     * @param json JSON that has to be validated
+     * @return boolean value indicating result of validation
+     */
     private boolean areBracketsBalanced(String json) {
         Stack<Character> stack = new Stack<Character>();
         boolean firstAddition = false;
@@ -57,6 +96,7 @@ public class JsonValidatorDecorator extends JsonDecorator {
                     stack.pop();
                 }
                 else {
+                    logger.debug("Error in brackets at character " + ch + " : stack is empty or no matching brackets");
                     return false;
                 }
             }

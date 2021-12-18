@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.put.poznan.transformer.exceptions.JsonProcessingError;
 import pl.put.poznan.transformer.logic.Json;
 
@@ -13,6 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class JsonSaverDecorator extends JsonDecorator {
+    private final Logger logger = LoggerFactory.getLogger(JsonSaverDecorator.class);
 
     private List<String> toSave;
 
@@ -30,7 +33,8 @@ public class JsonSaverDecorator extends JsonDecorator {
         try {
             return save(super.getData());
         }
-        catch (JsonProcessingException ex) {
+        catch (JsonProcessingException e) {
+            logger.debug(e.getClass().getCanonicalName() + ": error during JSON processing");
             throw new JsonProcessingError("Error in JSON processing");
         }
     }
@@ -42,8 +46,8 @@ public class JsonSaverDecorator extends JsonDecorator {
             saveNodes(node, toSave);
             return node.toPrettyString();
         }
-        catch (JsonProcessingException ex) {
-            throw ex;
+        catch (JsonProcessingException e) {
+            throw e;
         }
     }
 
