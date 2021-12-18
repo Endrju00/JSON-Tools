@@ -9,8 +9,7 @@ import pl.put.poznan.transformer.logic.Json;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Class purpose is to minify provided JSON.
- * @version 1.3.1
+ * Class purpose is to validate provided JSON.
  */
 public class JsonValidatorDecorator extends JsonDecorator {
     private final Logger logger = LoggerFactory.getLogger(JsonValidatorDecorator.class);
@@ -18,7 +17,7 @@ public class JsonValidatorDecorator extends JsonDecorator {
     /**
      * Constructor calling base class constructor
      *
-     * @param content is component
+     * @param content is an object that will be validated
      */
     public JsonValidatorDecorator(Json content) {
         super(content);
