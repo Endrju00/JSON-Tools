@@ -8,12 +8,29 @@ import pl.put.poznan.transformer.exceptions.InvalidJson;
 import pl.put.poznan.transformer.logic.Json;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Class purpose is to minify provided JSON.
+ * @version 1.3.1
+ */
 public class JsonValidatorDecorator extends JsonDecorator {
+    private final Logger logger = LoggerFactory.getLogger(JsonValidatorDecorator.class);
+
+    /**
+     * Constructor calling base class constructor
+     *
+     * @param content is component
+     */
     public JsonValidatorDecorator(Json content) {
         super(content);
     }
-    private final Logger logger = LoggerFactory.getLogger(JsonValidatorDecorator.class);
 
+    /**
+     * Method returns provided JSON string or throws an error
+     * when JSON is invalid
+     *
+     * @return validated JSON
+     * @throws InvalidJson in case JSON is invalid
+     */
     @Override
     public String getData() throws InvalidJson {
         if(isValidJson(super.getData())){
@@ -27,6 +44,12 @@ public class JsonValidatorDecorator extends JsonDecorator {
         }
     }
 
+    /**
+     * Uses Jackson library to check whether JSON is valid
+     *
+     * @param json JSON that has to be validated
+     * @return boolean value indicating result of validation
+     */
     public boolean isValidJson(String json) {
         boolean valid = true;
         try {
@@ -43,6 +66,14 @@ public class JsonValidatorDecorator extends JsonDecorator {
         return valid;
     }
 
+    /**
+     * Checks whether brackets are balanced and checks if
+     * there are no extra letters after a bracket or at the
+     * end or beginning of the JSON
+     *
+     * @param json JSON that has to be validated
+     * @return boolean value indicating result of validation
+     */
     private boolean areBracketsBalanced(String json) {
         Stack<Character> stack = new Stack<Character>();
         boolean firstAddition = false;
