@@ -9,9 +9,21 @@ import java.util.Arrays;
  * Class stores parameters and calls selected decorators
  */
 public class JsonTransformer {
+    /**
+     * Stores operations that have to be done on provided JSON
+     */
     private String[] transforms;
+    /**
+     * Attributes that will be saved in output JSON
+     */
     private String[] toSave;
+    /**
+     * Attributes that will be removed from final JSON
+     */
     private String[] toCut;
+    /**
+     * Used for logging
+     */
     private final Logger logger = LoggerFactory.getLogger(JsonTransformer.class);
 
     /**

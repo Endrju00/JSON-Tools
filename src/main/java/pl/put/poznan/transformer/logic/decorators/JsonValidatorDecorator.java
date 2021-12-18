@@ -12,6 +12,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * Class purpose is to validate provided JSON.
  */
 public class JsonValidatorDecorator extends JsonDecorator {
+    /**
+     * Used for logging
+     */
     private final Logger logger = LoggerFactory.getLogger(JsonValidatorDecorator.class);
 
     /**
