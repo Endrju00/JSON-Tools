@@ -36,9 +36,7 @@ public class JsonValidatorDecorator extends JsonDecorator {
             return super.getData();
         }
         else {
-            if(logger.isDebugEnabled())
-                logger.debug("Provided json is invalid");
-
+            logger.debug("Provided json is invalid");
             throw new InvalidJson("Json format is invalid");
         }
     }
@@ -95,9 +93,7 @@ public class JsonValidatorDecorator extends JsonDecorator {
                     stack.pop();
                 }
                 else {
-                    if(logger.isDebugEnabled())
-                        logger.debug("Error in brackets: stack is empty or no matching brackets");
-
+                    logger.debug("Error in brackets at character " + ch + " : stack is empty or no matching brackets");
                     return false;
                 }
             }

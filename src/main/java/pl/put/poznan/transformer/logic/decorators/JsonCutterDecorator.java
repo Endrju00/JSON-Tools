@@ -31,10 +31,8 @@ public class JsonCutterDecorator extends JsonDecorator {
         try {
             return cut(super.getData());
         }
-        catch (JsonProcessingException ex) {
-            if(logger.isDebugEnabled())
-                logger.debug("Error during JSON processing");
-
+        catch (JsonProcessingException e) {
+            logger.debug(e.getClass().getCanonicalName() + ": error during JSON processing");
             throw new JsonProcessingError("Error in JSON processing");
         }
     }
@@ -46,8 +44,8 @@ public class JsonCutterDecorator extends JsonDecorator {
             deleteNodes(node, toRemove);
             return node.toPrettyString();
         }
-        catch (JsonProcessingException ex) {
-            throw ex;
+        catch (JsonProcessingException e) {
+            throw e;
         }
     }
 
@@ -59,9 +57,7 @@ public class JsonCutterDecorator extends JsonDecorator {
                     ((ObjectNode) parent).remove(removeChild);
                 }
                 catch (Exception e) {
-                    if(logger.isDebugEnabled())
-                        logger.debug("Error during cutting, parent: " + parent + " child: " + removeChild);
-
+                    logger.debug(e.getClass().getCanonicalName() + ": error during cutting, parent: " + parent + " child: " + removeChild);
                     throw new JsonCutterError("Error during cutting");
                 }
             }

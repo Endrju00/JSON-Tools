@@ -20,10 +20,8 @@ public class JsonClarifierDecorator extends JsonDecorator {
         try {
             return clarify(super.getData());
         }
-        catch (JsonProcessingException ex) {
-            if(logger.isDebugEnabled())
-                logger.debug("Error during JSON processing");
-
+        catch (JsonProcessingException e) {
+            logger.debug(e.getClass().getCanonicalName() + ": error during JSON processing");
             throw new JsonProcessingError("Error in JSON processing");
         }
     }
@@ -34,8 +32,8 @@ public class JsonClarifierDecorator extends JsonDecorator {
             JsonNode node = mapper.readTree(json);
             return node.toPrettyString();
         }
-        catch (JsonProcessingException ex) {
-            throw ex;
+        catch (JsonProcessingException e) {
+            throw e;
         }
     }
 }

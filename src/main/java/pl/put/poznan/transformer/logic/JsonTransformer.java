@@ -50,9 +50,7 @@ public class JsonTransformer {
                     data = new JsonSaverDecorator(data, Arrays.asList(toSave));
                     break;
                 default:
-                    if(logger.isDebugEnabled())
-                        logger.debug("There is no such method as: " + transform);
-
+                    logger.debug("There is no such method as: " + transform);
                     throw new NoSuchMethodException("Invalid transform");
             }
         }
