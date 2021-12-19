@@ -13,5 +13,15 @@ Aplikacja dla programistów, którzy potrzebują przeformatować lub filtrować 
 
 [Zasady punktowania projektu](https://docs.google.com/spreadsheets/d/e/2PACX-1vTn6j3M8pmGEzrsQk8mXse7lVHUdhYWkfxbkQiYI23rBtwM4N3bWw0qtupW-gesfCkcYasnZ-eEXl-F/pubhtml)
 
+### Dokumentacja
+Dostępna na [github-pages](https://endrju00.github.io/JSON-tools/).
+
+### Dystrybucja
+Paczka dostępna w folderze jars.
+
 ### Status ostatniego builda
 ![example workflow](https://github.com/Endrju00/JSON-tools/actions/workflows/ci.yml/badge.svg)
+
+[![Generate docs and package](https://github.com/Endrju00/JSON-tools/actions/workflows/docs.yml/badge.svg)](https://github.com/Endrju00/JSON-tools/actions/workflows/docs.yml)
+
+[![pages-build-deployment](https://github.com/Endrju00/JSON-tools/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/Endrju00/JSON-tools/actions/workflows/pages/pages-build-deployment)

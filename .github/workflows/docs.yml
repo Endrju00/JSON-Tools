@@ -1,9 +1,6 @@
-name: docs
+name: Generate docs and package
 
-on:
-  push:
-    branches: [ main ]
-    paths: [ '**.java' ]
+on: [push]
 
 jobs:
   api-website:
@@ -17,14 +14,33 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
+   
+    - name: Compile project to jar
+      run: mvn compile assembly:single
+ 
+    - name: Copy jar to folder
+      run: |
+        rm -rfv jars
+        mkdir jars
+        cp -rfv target/*.jar jars/
+        
+    - name: Commit package changes
+      run: |
+        if [[ `git status --porcelain` ]]; then
+          git config --global user.name 'Endrju00'
+          git config --global user.email 'andrzej.kapczynski21@gmail.com'
+          git add -A
+          git commit -m "Automated API package update."
+          git push
+        fi
 
     - name: Build docs with Maven
-      run: mvn javadoc:javadoc
+      run: mvn clean javadoc:javadoc
 
     - name: Copy to Documentation Website Location
       run: |
-        rm -rf docs
-        cp -rf target/site/apidocs/. docs
+        rm -rfv docs
+        cp -rfv target/site/apidocs/. docs
     - name: Tidy up the javadocs
       id: tidy
       uses: cicirello/javadoc-cleanup@v1
@@ -41,6 +57,6 @@ jobs:
           git config --global user.name 'Endrju00'
           git config --global user.email 'andrzej.kapczynski21@gmail.com'
           git add -A
-          git commit -m "Automated API website updates."
+          git commit -m "Automated API docs update."
           git push
         fi
