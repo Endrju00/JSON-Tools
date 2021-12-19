@@ -16,6 +16,9 @@ Aplikacja dla programistów, którzy potrzebują przeformatować lub filtrować 
 ### Dokumentacja
 Dostępna na [github-pages](https://endrju00.github.io/JSON-tools/).
 
+### Diagram klas
+![diagram](./umlclass.png)
+
 ### Dystrybucja
 Paczka dostępna w folderze jars.
 
