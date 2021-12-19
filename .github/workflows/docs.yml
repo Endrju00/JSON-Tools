@@ -16,13 +16,13 @@ jobs:
         distribution: 'adopt'
    
     - name: Compile project to jar
-      run: mvn assembly:single
+      run: mvn compile assembly:single
  
     - name: Copy jar to folder
       run: |
         rm -rfv jars
         mkdir jars
-        cp -rfv target/. jars/
+        cp -rfv target/*.jar jars/
         
     - name: Commit package changes
       run: |
