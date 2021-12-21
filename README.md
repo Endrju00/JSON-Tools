@@ -11,7 +11,6 @@ Aplikacja dla programistów, którzy potrzebują przeformatować lub filtrować 
 * [Dawid Michalak](https://github.com/DawidMichalak)
 
 
-[Zasady punktowania projektu](https://docs.google.com/spreadsheets/d/e/2PACX-1vTn6j3M8pmGEzrsQk8mXse7lVHUdhYWkfxbkQiYI23rBtwM4N3bWw0qtupW-gesfCkcYasnZ-eEXl-F/pubhtml)
 
 ### Dokumentacja
 Dostępna na [github-pages](https://endrju00.github.io/JSON-tools/).
