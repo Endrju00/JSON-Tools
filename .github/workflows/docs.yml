@@ -16,7 +16,7 @@ jobs:
         distribution: 'adopt'
    
     - name: Compile project to jar
-      run: mvn compile assembly:single
+      run: mvn compile package
  
     - name: Copy jar to folder
       run: |
