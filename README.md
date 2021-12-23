@@ -10,6 +10,7 @@ Aplikacja dla programistów, którzy potrzebują przeformatować lub filtrować 
 * [Wiktoria Keller](https://github.com/wiktoriakeller)
 * [Dawid Michalak](https://github.com/DawidMichalak)
 
+[Product backlog](https://docs.google.com/spreadsheets/d/1UsPDrixpU5Be9p3DeAJek5pTx28pQP3_nAU41of8OD4/edit?usp=sharing)
 
 
 ### Dokumentacja
